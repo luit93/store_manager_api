@@ -1,0 +1,19 @@
+### user sign up endpoint
+POST http://localhost:3001/v1/user
+Content-Type: application/application/json
+
+{
+    "name": "junSaikiam",
+    "email": "jun@s.com",
+    "phone": 1111111792,
+    "password":"123458889"
+    
+}
+### user log in endpoint
+POST http://localhost:3001/v1/user/login
+Content-Type: application/application/json
+
+{
+    "email": "s@s.com",
+    "password ":"12345678" 
+}

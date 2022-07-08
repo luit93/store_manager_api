@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== "production") {
 app.use(helmet());
 //handle cors error
 app.use(cors());
-
+app.use(express.json())
 //set body parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -42,7 +42,7 @@ app.listen(port, () => {
 //handle errors
 const errorHandler = require("./src/utils/handleError");
 app.use((req, res) => {
-  const error = new Error("resources not found");
+  const error = new Error("page not found");
   error.status = 404;
   next(error);
 });
