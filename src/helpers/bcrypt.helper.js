@@ -21,8 +21,11 @@ const comparePassword = (plainPassword, passwordFromDb) => {
   return new Promise((resolve, reject) => {
     bcrypt.compare(plainPassword, passwordFromDb, function (err, result) {
       if (err) {
+        console.log('compare fali')
         reject(err);
+        
       }
+      console.log('compare pas',result)
       resolve(result);
     });
   });
