@@ -1,25 +1,25 @@
 const jwt = require("jsonwebtoken");
-// const { set } = require("mongoose");
+const {storeUserRefreshJWT} = require("../models/user/User.model")
 const { setJWT, getJWT } = require("./redis.helper");
 
 
-const createAccessJWT = async (payload) => {
+const createAccessJWT = async (email,_id) => {
   try {
-    const accessToken = jwt.sign({ payload }, process.env.JWT_ACCESS_TK, {
+    const accessToken = await jwt.sign({ email }, process.env.JWT_ACCESS_TK, {
       expiresIn: "15m",
     });
-    await setJWT(accessToken);
+    await setJWT(accessToken,_id);
     return Promise.resolve(accessToken);
   } catch (error) {
     return Promise.reject(error);
   }
 };
-const createRefreshJWT = async (payload) => {
+const createRefreshJWT = async (email,_id) => {
   try {
-    const refreshToken = jwt.sign({ payload }, process.env.JWT_REFRESH_TK, {
+    const refreshToken = jwt.sign({ email }, process.env.JWT_REFRESH_TK, {
       expiresIn: "30d",
     });
-    // await getJWT(refreshToken);
+    await storeUserRefreshJWT(_id,refreshToken)
     return Promise.resolve(refreshToken);
   } catch (error) {
     return Promise.reject(error);

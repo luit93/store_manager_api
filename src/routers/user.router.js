@@ -61,8 +61,8 @@ router.post("/login", async (req, res) => {
     });
   }
   //creating tokens
-  const accessJWT = await createAccessJWT(user.email);
-  const refreshJWT = await createRefreshJWT(user.email);
+  const accessJWT = await createAccessJWT(user.email,`${user._id}`);
+  const refreshJWT = await createRefreshJWT(user.email,`${user._id}`);
   // console.log('password compare',result)
   res.json({ status: "success", message: " successful",accessJWT,refreshJWT });
 });

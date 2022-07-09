@@ -1,49 +1,32 @@
-const redis = require('redis')
-// const client = redis.createClient()
-const client = redis.createClient();  
-// let client;
+const redis = require("redis");
 
-// (async () => {
-//   client = redis.createClient();
+const client = redis.createClient(process.env.REDIS_URL);
 
-//   client.on('error', (err) => console.log('Redis Client Error', err));
 
-//   await client.connect();
-  
-// })();
-
-const setJWT=  async (key,value)=>{
-    
-   return  new Promise( async (resolve,reject)=>{
-     
-    
+const setJWT = async (key, value) => {
+    console.log(key)
+  return new Promise(async (resolve, reject) => {
     try {
-        
-       await client.set("key","value",(err,res)=>{
-            if(err) reject(err)
-            resolve(res)
-        })
-        
+      await client.set(key, value, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
     } catch (error) {
-        reject(error)
+      reject(error);
     }
-
-   }) 
-}
-const getJWT=(key)=>{
-   return new Promise((resolve,reject)=>{
-
+  });
+};
+const getJWT = (key) => {
+  return new Promise((resolve, reject) => {
     try {
-        client.get("key",(err,res)=>{
-            if(err) reject(err)
-            resolve(res)
-        })
-        
+      client.get(key, (err, res) => {
+        if (err) reject(err);
+        resolve(res);
+      });
     } catch (error) {
-        reject(error)
+      reject(error);
     }
+  });
+};
 
-   })
-}
-
-module.exports={setJWT,getJWT}
+module.exports = { setJWT, getJWT };

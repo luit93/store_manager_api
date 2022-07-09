@@ -9,25 +9,47 @@ const insertUser = (userObj) => {
   });
 };
 
-const getUserByEmail = email=>{
-  return new Promise((resolve,reject)=>{
-    if(!email) return false
+const getUserByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    if (!email) return false;
     try {
-      UserSchema.findOne({email},(error,data)=>{
-        if(error){
-          console.log(error)
-          reject(error)
+      UserSchema.findOne({ email }, (error, data) => {
+        if (error) {
+          console.log(error);
+          reject(error);
         }
-        resolve(data)
-      })
+        resolve(data);
+      });
     } catch (error) {
-      reject(error)
+      reject(error);
     }
-  
-  })
-  
-}
+  });
+};
+
+const storeUserRefreshJWT = (_id, token) => {
+  return new Promise((resolve, reject) => {
+    try {
+      UserSchema.findOneAndUpdate(
+        { _id }, //filter
+        {
+          $set: { "refreshJWT.token": token, "refreshJWT.addedAt": Date.now() }, //data to be updated
+        },
+        { new: true }
+      )
+        .then((data) => resolve(data))
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
 
 module.exports = {
-  insertUser, getUserByEmail
+  insertUser,
+  getUserByEmail,
+  storeUserRefreshJWT,
 };
