@@ -16,7 +16,7 @@ All user API follows `/v1/user/`
 | 1 | `/v1/user/login`                   | POST   | TODO       |  NO        | verify user auth and return jwt              |
 | 2 | `/v1/user/request-reset-password`  | POST   | TODO       |  NO        | verify email & pin to reset password         |
 | 3 | `/v1/user/reset-password`          | POST   | TODO       |  NO        | replace with new password                    |
-| 4 | `/v1/user/{id}`                    | POST   | TODO       |  NO        | get user info                                |
+| 4 | `/v1/user`                    | POST   | TODO       |  YES        | get user info                                |
 
 ### Category API resources
 

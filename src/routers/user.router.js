@@ -6,7 +6,8 @@ const {
   createAccessJWT,
   createRefreshJWT,
 } = require("../helpers/jwt.helper");
-const json = require("body-parser/lib/types/json");
+const {userAuthorization} = require("../middleware/auth.middleware")
+
 router.all("/", (req, res, next) => {
   // res.json({message:"returned from user router"})
   next();
@@ -31,7 +32,17 @@ router.post("/", async (req, res) => {
     res.json({ status: "error", message: error.message });
   }
 });
-
+//get user info route
+router.get("/",userAuthorization,(req,res)=>{
+  //data coming from db
+  const user={
+    name:"julius",
+    email:"j@s.com",
+    phone:"11111111111",
+    password:"qqqqqqqq"
+  }
+  res.json({user: req.userId}) 
+})
 //user log in route
 router.post("/login", async (req, res) => {
   console.log("data from client", req.body);
@@ -66,5 +77,6 @@ router.post("/login", async (req, res) => {
   // console.log('password compare',result)
   res.json({ status: "success", message: " successful",accessJWT,refreshJWT });
 });
+
 
 module.exports = router;
