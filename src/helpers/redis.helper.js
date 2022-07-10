@@ -24,6 +24,7 @@ const getJWT = (key) => {
         resolve(res);
       });
     } catch (error) {
+        // console.log('first')
       reject(error);
     }
   });

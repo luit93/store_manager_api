@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const { insertUser, getUserByEmail } = require("../models/user/User.model");
-const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 const {
-  createAccessJWT,
-  createRefreshJWT,
-} = require("../helpers/jwt.helper");
-const {userAuthorization} = require("../middleware/auth.middleware")
+  insertUser,
+  getUserByEmail,
+  getUserById,
+} = require("../models/user/User.model");
+const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
+const { createAccessJWT, createRefreshJWT } = require("../helpers/jwt.helper");
+const { userAuthorization } = require("../middleware/auth.middleware");
 
 router.all("/", (req, res, next) => {
-  // res.json({message:"returned from user router"})
+  
   next();
 });
 
@@ -33,16 +34,14 @@ router.post("/", async (req, res) => {
   }
 });
 //get user info route
-router.get("/",userAuthorization,(req,res)=>{
-  //data coming from db
-  const user={
-    name:"julius",
-    email:"j@s.com",
-    phone:"11111111111",
-    password:"qqqqqqqq"
-  }
-  res.json({user: req.userId}) 
-})
+router.get("/", userAuthorization, async (req, res) => {
+  //3. Extract user id
+  const _id = req.userId;
+  //4. Get user profile from mongodb based on user id
+  const userProfile = await getUserById(_id);
+
+  res.json({ userProfile });
+});
 //user log in route
 router.post("/login", async (req, res) => {
   console.log("data from client", req.body);
@@ -72,11 +71,15 @@ router.post("/login", async (req, res) => {
     });
   }
   //creating tokens
-  const accessJWT = await createAccessJWT(user.email,`${user._id}`);
-  const refreshJWT = await createRefreshJWT(user.email,`${user._id}`);
+  const accessJWT = await createAccessJWT(user.email, `${user._id}`);
+  const refreshJWT = await createRefreshJWT(user.email, `${user._id}`);
   // console.log('password compare',result)
-  res.json({ status: "success", message: " successful",accessJWT,refreshJWT });
+  res.json({
+    status: "success",
+    message: " successful",
+    accessJWT,
+    refreshJWT,
+  });
 });
-
 
 module.exports = router;

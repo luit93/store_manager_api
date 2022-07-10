@@ -7,7 +7,7 @@ const port = process.env.PORT || 3001;
 require("dotenv").config();
 const mongoose = require("mongoose");
 const app = express();
-//connect to mongo db with mongoose
+//connect to mongodb with mongoose
 mongoose.connect(process.env.MONGO_URL);
 if (process.env.NODE_ENV !== "production") {
   const mDb = mongoose.connection;
