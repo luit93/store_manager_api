@@ -32,10 +32,12 @@ app.use(bodyParser.json());
 //load routers
 const userRouter = require("./src/routers/user.router");
 const categoryRouter = require("./src/routers/category.router");
+const tokenRouter = require("./src/routers/token.router")
 
 //use routers
 app.use("/v1/user", userRouter);
 app.use("/v1/category", categoryRouter);
+app.use("/v1/token", tokenRouter)
 app.listen(port, () => {
   console.log(`API runnng on port http://localhost:${port}`);
 });
