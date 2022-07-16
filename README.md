@@ -14,8 +14,8 @@ All user API follows `/v1/user/`
 | #  | Routers                           | Verbs  | Progress   | Private    | Description                                  |
 | ---| ---------------------------       | ------ | ---------- | ---------- | -------------------------------------------- |
 | 1 | `/v1/user/login`                   | POST   | TODO       |  NO        | verify user auth and return jwt              |
-| 2 | `/v1/user/request-reset-password`  | POST   | TODO       |  NO        | verify email & pin to reset password         |
-| 3 | `/v1/user/reset-password`          | POST   | TODO       |  NO        | replace with new password                    |
+| 2 | `/v1/user/reset-password`          | POST   | TODO       |  NO        | verify email & pin to reset password         |
+| 3 | `/v1/user/reset-password`          | PATCH  | TODO       |  NO        | replace with new password                    |
 | 4 | `/v1/user`                    | POST   | TODO       |  YES        | get user info                                |
 
 ### Category API resources

@@ -20,6 +20,7 @@ const userAuthorization = async (req, res, next) => {
     req.userId = userId;
     return next();
   }
+  //if token not valid or expired- delete
   deleteJWT(authorization);
 
   return res.status(403).json({ message: "User Not Authorized" });
