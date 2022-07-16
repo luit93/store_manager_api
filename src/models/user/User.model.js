@@ -42,6 +42,27 @@ const getUserById = (_id) => {
     }
   });
 };
+const updatePassword = (email, newHashedPass) => {
+  return new Promise((resolve, reject) => {
+    try {
+      UserSchema.findOneAndUpdate(
+        { email }, //filter
+        {
+          $set: { password: newHashedPass }, //data to be updated
+        },
+        { new: true }
+      )
+        .then((data) => resolve(data))
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
 const storeUserRefreshJWT = (_id, token) => {
   return new Promise((resolve, reject) => {
     try {
@@ -69,4 +90,5 @@ module.exports = {
   getUserByEmail,
   getUserById,
   storeUserRefreshJWT,
+  updatePassword,
 };
