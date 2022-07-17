@@ -12,11 +12,13 @@
 All user API follows `/v1/user/`
 
 | #  | Routers                           | Verbs  | Progress   | Private    | Description                                  |
-| ---| ---------------------------       | ------ | ---------- | ---------- | -------------------------------------------- |
-| 1 | `/v1/user/login`                   | POST   | TODO       |  NO        | verify user auth and return jwt              |
-| 2 | `/v1/user/reset-password`          | POST   | TODO       |  NO        | verify email & pin to reset password         |
-| 3 | `/v1/user/reset-password`          | PATCH  | TODO       |  NO        | replace with new password                    |
-| 4 | `/v1/user`                    | POST   | TODO       |  YES        | get user info                                |
+|---| ---------------------------        | ------ | ---------- | ---------- | -------------------------------------------- |
+| 1 | `/v1/user`                         | POST   | DONE       |  NO        | create a user                                |
+| 2 | `/v1/user`                         | GET    | DONE       |  YES       | get user info                                |
+| 3 | `/v1/user/login`                   | POST   | DONE       |  NO        | verify user auth and return jwt              |
+| 4 | `/v1/user/reset-password`          | POST   | DONE       |  NO        | verify email & pin to reset password         |
+| 5 | `/v1/user/reset-password`          | PATCH  | DONE       |  NO        | replace with new password and update db      |
+| 6 | `/v1/user/logout`                  | DELETE | DONE       |  YES       | delete user access jwt                       |
 
 ### Category API resources
 

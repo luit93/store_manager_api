@@ -5,6 +5,7 @@ const {
   getUserByEmail,
   getUserById,
   updatePassword,
+  storeUserRefreshJWT,
 } = require("../models/user/User.model");
 const { hashPassword, comparePassword } = require("../helpers/bcrypt.helper");
 const { createAccessJWT, createRefreshJWT } = require("../helpers/jwt.helper");
@@ -14,7 +15,8 @@ const {
   getPinFromDb,deletePin
 } = require("../models/reset-pin/ResetPin.model");
 const { emailProcessor } = require("../helpers/email.helper");
-const {resetPinValidation,updatePasswordValidation}= require('../middleware/formValidation.middleware')
+const {resetPinValidation,updatePasswordValidation}= require('../middleware/formValidation.middleware');
+const { deleteJWT } = require("../helpers/redis.helper");
 
 router.all("/", (req, res, next) => {
   next();
@@ -113,12 +115,7 @@ router.post("/reset-password",resetPinValidation, async (req, res) => {
   });
 });
 
-
-
-
-
-//C. server sise form validation
-//create middleware to validate data
+//update password
 router.patch("/reset-password",updatePasswordValidation, async (req, res) => {
   //receive email,pin and, new pw
   const { email, pin, newPassword } = req.body;
@@ -152,5 +149,25 @@ router.patch("/reset-password",updatePasswordValidation, async (req, res) => {
     status:'error',
     message:'Unale to update password'
   });
+});
+
+//logout and delete/invalidate accessjwt
+
+router.delete("/logout",userAuthorization, async (req, res) => {
+  const {authorization} = req.headers
+  //get jwt and verify with middleware userAuth
+  const _id = req.userId;
+//delete access jwt from redis
+deleteJWT(authorization)
+
+//delete refresh jwt from mongo
+const result = await storeUserRefreshJWT(_id,'')
+if(result._id){
+  return res.json({ status:'success',message:'User logged out' });
+
+}
+ res.json({ status:'error',message:'unable to log out' });
+
+
 });
 module.exports = router;
