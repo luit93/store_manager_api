@@ -14,6 +14,7 @@ const {
   getPinFromDb,deletePin
 } = require("../models/reset-pin/ResetPin.model");
 const { emailProcessor } = require("../helpers/email.helper");
+const {resetPinValidation,updatePasswordValidation}= require('../middleware/formValidation.middleware')
 
 router.all("/", (req, res, next) => {
   next();
@@ -88,7 +89,7 @@ router.post("/login", async (req, res) => {
 });
 //reset password route
 
-router.post("/reset-password", async (req, res) => {
+router.post("/reset-password",resetPinValidation, async (req, res) => {
   //receive email
   const { email } = req.body;
   //check if user with email exists
@@ -118,7 +119,7 @@ router.post("/reset-password", async (req, res) => {
 
 //C. server sise form validation
 //create middleware to validate data
-router.patch("/reset-password", async (req, res) => {
+router.patch("/reset-password",updatePasswordValidation, async (req, res) => {
   //receive email,pin and, new pw
   const { email, pin, newPassword } = req.body;
  
