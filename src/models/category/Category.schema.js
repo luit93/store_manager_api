@@ -18,6 +18,7 @@ const CategorySchema = new Schema({
         // unique: true,
         index: 1,
       },
+      img:{type:Array,default: null},
       parent:{
         type: mongoose.Schema.Types.ObjectId, default:null
       }
