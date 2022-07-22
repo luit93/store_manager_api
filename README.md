@@ -26,7 +26,7 @@ All category API follows `/v1/category/`
 
 | #  | Routers                               | Verbs  | Progress   | Private    | Description                                  |
 | ---| ---------------------------           | ------ | ---------- | ---------- | -------------------------------------------- |
-| 1 | `/v1/category`                   | POST   | TODO       |  NO        | verify category auth and return jwt          |
+| 1 | `/v1/category`                         | POST   | TODO       |  NO        | verify category auth and return jwt          |
 | 2 | `/v1/category/request-reset-password`  | POST   | TODO       |  NO        | verify email & pin to reset password         |
 | 3 | `/v1/category/reset-password`          | POST   | TODO       |  NO        | replace with new password                    |
 | 4 | `/v1/category/{id}`                    | POST   | TODO       |  NO        | get user info                                |
