@@ -14,7 +14,7 @@ const createCategory=(newCat)=>{
     })
 }
 //get categories
-const getCategory=()=>{
+const getCategories=()=>{
     return new Promise((resolve,reject)=>{
         try {
             CategorySchema.find()
@@ -25,7 +25,19 @@ const getCategory=()=>{
         }
     })
 }
+//get single category
+const getCategory=(_id)=>{
+    return new Promise((resolve,reject)=>{
+        try {
+            CategorySchema.find({_id})
+            .then((data)=>resolve(data))
+            .catch((error)=>reject(error))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 module.exports=({
-    createCategory,getCategory
+    createCategory,getCategories,getCategory
 })
