@@ -10,17 +10,10 @@ const CategorySchema = new Schema({
         required: false,
         default: 'active',
       },  
-       slug: {
-        type: String,
-        required: false,
-        default: '',
-        maxLength: 30,
-        // unique: true,
-        index: 1,
-      },
-      img:{type:Array,default: null},
+     
+      img:{type:Array},
       parent:{
-        type: mongoose.Schema.Types.ObjectId, default:null
+        type: mongoose.Schema.Types.ObjectId
       }
 
 },{timestamps:true})
@@ -29,3 +22,13 @@ module.exports = {
     CategorySchema: mongoose.model("Category", CategorySchema),
   };
   
+
+
+//   slug: {
+//     type: String,
+//     required: false,
+//     default: '',
+//     maxLength: 30,
+//     unique: true,
+//     index: 1,
+//   },

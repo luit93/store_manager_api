@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const {createCategory,getCategories,getCategory} = require('../models/category/Category.model')
+const {createCategory,getCategories,getCategory,updateCategory} = require('../models/category/Category.model')
 const {userAuthorization} = require('../middleware/auth.middleware')
 
 router.all('/',(req,res,next)=>{
@@ -11,14 +11,14 @@ router.post('/',userAuthorization,async(req,res,next)=>{
     try {
         //receive new category
     const {name} = req.body
-    console.log('name',name)
+    // console.log('name',name)
     //insert category into mongodb
     const newCategory ={
         name
     }
     console.log('newCate',newCategory)
     const result = await createCategory(newCategory)
-   console.log('result',result)
+//    console.log('result',result)
     if(result._id){
      return res.json({status:'success',message:"created new category "})
  
@@ -63,6 +63,41 @@ router.get('/:_id',userAuthorization,async(req,res,next)=>{
         message: 'selected category',
         category,
       })
+    } catch (error) {
+        console.log(error.message)
+
+        res.status(500).json({
+          status: 'error',
+          message: 'error, unable to process your request, try again',
+        })
+
+    }
+   
+})
+//update a category
+router.put('/:_id',userAuthorization,async(req,res,next)=>{
+    try {
+        //receive new data
+        const {name,parent,img,status} = req.body
+           
+       const newCategoryData ={
+        name,parent,img,status
+    }
+        const {_id} = req.params
+    const category = await updateCategory(_id,newCategoryData)
+    if(category._id){
+        res.json({
+            status: 'success',
+            message: 'updated category',
+            category,
+          })
+    }
+   
+    res.status(500).json({
+        status: 'error',
+        message: 'error, unable to process your request, try again1',
+      })
+
     } catch (error) {
         console.log(error.message)
 

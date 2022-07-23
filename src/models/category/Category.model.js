@@ -37,7 +37,19 @@ const getCategory=(_id)=>{
         }
     })
 }
-
+//update category in mongo
+const updateCategory=(_id,newCat)=>{
+    return new Promise((resolve,reject)=>{
+        try {
+            CategorySchema
+            .findOneAndUpdate(_id,newCat)
+            .then((data)=>resolve(data))
+            .catch((error)=>reject(error))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports=({
-    createCategory,getCategories,getCategory
+    createCategory,getCategories,getCategory,updateCategory
 })
