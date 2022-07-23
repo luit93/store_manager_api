@@ -1,11 +1,12 @@
 const express = require("express")
 const router = express.Router()
-const {createCategory} = require('../models/category/Category.model')
+const {createCategory,getCategory} = require('../models/category/Category.model')
 const {userAuthorization} = require('../middleware/auth.middleware')
 
 router.all('/',(req,res,next)=>{
     next()
 })
+//create category
 router.post('/',userAuthorization,async(req,res,next)=>{
     try {
         //receive new category
@@ -30,5 +31,29 @@ router.post('/',userAuthorization,async(req,res,next)=>{
     }
    
 })
+//get categories
+
+router.get('/',userAuthorization,async(req,res,next)=>{
+    try {
+        
+    const categories = await getCategory()
+    res.json({
+        status: 'success',
+        message: 'list of categories',
+        categories,
+      })
+    } catch (error) {
+        console.log(error.message)
+
+        res.status(500).json({
+          status: 'error',
+          message: 'error, unable to process your request, try again',
+        })
+
+    }
+   
+})
+
+
 
 module.exports = router

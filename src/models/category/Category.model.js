@@ -13,7 +13,19 @@ const createCategory=(newCat)=>{
         }
     })
 }
+//get categories
+const getCategory=()=>{
+    return new Promise((resolve,reject)=>{
+        try {
+            CategorySchema.find()
+            .then((data)=>resolve(data))
+            .catch((error)=>reject(error))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 
 module.exports=({
-    createCategory
+    createCategory,getCategory
 })
