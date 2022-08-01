@@ -29,7 +29,7 @@ const getCategories=()=>{
 const getCategory=(_id)=>{
     return new Promise((resolve,reject)=>{
         try {
-            CategorySchema.find({_id})
+            CategorySchema.findOne({_id})
             .then((data)=>resolve(data))
             .catch((error)=>reject(error))
         } catch (error) {
@@ -38,11 +38,11 @@ const getCategory=(_id)=>{
     })
 }
 //update category in mongo
-const updateCategory=(_id,newCat)=>{
+const updateCategory=({_id,name,parent,img,status})=>{
     return new Promise((resolve,reject)=>{
         try {
             CategorySchema
-            .findOneAndUpdate(_id,newCat)
+            .findOneAndUpdate({_id},{name,parent,img,status},{new:true})
             .then((data)=>resolve(data))
             .catch((error)=>reject(error))
         } catch (error) {

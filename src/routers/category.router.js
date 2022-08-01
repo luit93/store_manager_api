@@ -16,7 +16,7 @@ router.post('/',userAuthorization,async(req,res,next)=>{
     const newCategory ={
         name
     }
-    console.log('newCate',newCategory)
+    console.log('newCat',newCategory)
     const result = await createCategory(newCategory)
 //    console.log('result',result)
     if(result._id){
@@ -84,9 +84,9 @@ router.put('/:_id',userAuthorization,async(req,res,next)=>{
         name,parent,img,status
     }
         const {_id} = req.params
-    const category = await updateCategory(_id,newCategoryData)
+    const category = await updateCategory({_id,name,parent,img,status})
     if(category._id){
-        res.json({
+        return res.json({
             status: 'success',
             message: 'updated category',
             category,
@@ -103,7 +103,7 @@ router.put('/:_id',userAuthorization,async(req,res,next)=>{
 
         res.status(500).json({
           status: 'error',
-          message: 'error, unable to process your request, try again',
+          message: 'error, unable to process your request, try again2',
         })
 
     }
