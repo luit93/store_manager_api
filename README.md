@@ -29,4 +29,4 @@ All category API follows `/v1/category/`
 | 1 | `/v1/category`                         | POST   | DONE       |  YES        | create category                             |
 | 2 | `/v1/category`                         | GET    | DONE       |  YES        | get all categories                          |
 | 3 | `/v1/category/{id}`                    | GET    | DONE       |  YES        | get category by id                          |
-| 3 | `/v1/category/{id}`                    | PUT    | DONE       |  YES        | update category by ud                          |
+| 3 | `/v1/category/{id}`                    | POST   | DONE       |  YES        | update category by id                          |

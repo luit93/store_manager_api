@@ -50,6 +50,19 @@ const updateCategory=({_id,name,parent,img,status})=>{
         }
     })
 }
+
+//delete single category
+const deleteCategory=(_id)=>{
+    return new Promise((resolve,reject)=>{
+        try {
+            CategorySchema.findOneAndDelete({_id})
+            .then((data)=>resolve(data))
+            .catch((error)=>reject(error))
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 module.exports=({
-    createCategory,getCategories,getCategory,updateCategory
+    createCategory,getCategories,getCategory,updateCategory,deleteCategory
 })
