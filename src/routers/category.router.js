@@ -8,12 +8,12 @@ const {
   deleteCategory,
 } = require("../models/category/Category.model");
 const { userAuthorization } = require("../middleware/auth.middleware");
-
+const {newCategoryValidation,updateCategoryValidation} = require('../middleware/formValidation.middleware')
 router.all("/", (req, res, next) => {
   next();
 });
 //create category
-router.post("/", userAuthorization, async (req, res, next) => {
+router.post("/", newCategoryValidation,userAuthorization, async (req, res, next) => {
   try {
     //receive new category
     const { name } = req.body;
@@ -72,7 +72,7 @@ router.get("/:_id", userAuthorization, async (req, res, next) => {
   }
 });
 //update a category
-router.patch("/:_id", userAuthorization, async (req, res, next) => {
+router.patch("/:_id",updateCategoryValidation, userAuthorization, async (req, res, next) => {
   try {
     //receive new data
     const { name, parent, img, status } = req.body;

@@ -6,7 +6,7 @@ const { setJWT } = require("./redis.helper");
 const createAccessJWT = async (email,_id) => {
   try {
     const accessToken = await jwt.sign({ email }, process.env.JWT_ACCESS_TK, {
-      expiresIn: "15m",
+      expiresIn: "1d",
     });
     await setJWT(accessToken,_id);
     return Promise.resolve(accessToken);

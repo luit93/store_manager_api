@@ -46,9 +46,9 @@ router.get("/", userAuthorization, async (req, res) => {
   //3. Extract user id
   const _id = req.userId;
   //4. Get user profile from mongodb based on user id
-  const userProfile = await getUserById(_id);
-
-  res.json({ userProfile });
+  const user = await getUserById(_id);
+  const{name,email} =user
+  res.json({ userProfile:{_id,name,email} });
 });
 //user log in route
 router.post("/login", async (req, res) => {
